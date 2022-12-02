@@ -1,8 +1,13 @@
-import { useContext, useState } from "react";
-import { UserContext } from "../context/UserProvider";
+// Imports React Router
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+// Imports React
+import { useContext, useState } from "react";
+
+// Imports Contexts
+import { UserContext } from "../context/UserProvider";
+
+const RegisterUser = () => {
   //Estilos
   const inputStyle = { margin: "5px", padding: "3px 8px" };
   const buttonStyle = { margin: "5px", padding: "3px 8px" };
@@ -11,27 +16,31 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // useContext
-  const { loginEmailUser } = useContext(UserContext);
+  //useContext
 
-  // Navigate
-  const navigate = useNavigate();
+  const { registerEmailUser } = useContext(UserContext);
+
+    // Navigate
+    const navigate = useNavigate();
 
   //Funciones
-  const handleSubmit = async (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     try {
-      await loginEmailUser(email, password);
-      navigate('/userdata')
+      await registerEmailUser(email, password);
+      navigate("/userdata");
     } catch (error) {
-      console.log(error);
+      alert(error.code);
     }
   };
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Login de Usuarios</h1>
-      <form style={{ display: "grid", margin: "0 auto", width:"300px" }} onSubmit={handleSubmit}>
+      <h1 style={{ textAlign: "center" }}>Registro de Usuarios</h1>
+      <form
+        style={{ display: "grid", margin: "0 auto", width: "300px" }}
+        onSubmit={handleRegisterSubmit}
+      >
         <input
           style={inputStyle}
           type="email"
@@ -50,13 +59,19 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-
+        <input
+          style={inputStyle}
+          type="password"
+          placeholder="Verifique la contraseña"
+          name="passwordreply"
+          id="passwordreply"
+        />
         <button type="submit" style={buttonStyle}>
-          Acceder
+          Registrar Usuario
         </button>
       </form>
     </>
   );
 };
 
-export default Login;
+export default RegisterUser;
