@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserProvider";
 import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Login = () => {
   //Estilos
@@ -54,6 +55,7 @@ const Login = () => {
         <button type="submit" style={buttonStyle}>
           Acceder
         </button>
+        <NavLink style={{ textAlign: "center" }} to='/register'>Aun no tienes usuario? Registrate.</NavLink>
       </form>
     </>
   );

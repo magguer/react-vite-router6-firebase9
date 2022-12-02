@@ -10,7 +10,7 @@ const Header = () => {
   const handleUserLogout = async () => {
     try {
       await signOutEmailUser();
-      navigate('/login')
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
@@ -28,13 +28,24 @@ const Header = () => {
     >
       {user ? (
         <>
-          <NavLink to="/">Inicio</NavLink>
-          <NavLink to="/userdata">Perfil de Ususario</NavLink>
-          <button onClick={handleUserLogout}>Desconectar</button>
+          <div style={{ display: "flex" }}>
+            <div style={navStyle}>
+              <NavLink to="/">Inicio</NavLink>
+            </div>
+            <div style={navStyle}>
+              <NavLink to="/userdata">Perfil de Ususario</NavLink>
+            </div>
+          </div>
+          <div style={{ display: "grid" }}>
+            <p>{user && user.email}</p>
+            <button onClick={handleUserLogout}>Desconectar</button>
+          </div>
         </>
       ) : (
         <>
-          <div style={{ display: "flex" }}>
+          <div
+            style={{ display: "flex", justifyContent: "end", width: "100%" }}
+          >
             <div style={navStyle}>
               <NavLink to="/login">Login</NavLink>
             </div>
@@ -44,8 +55,6 @@ const Header = () => {
           </div>
         </>
       )}
-      <h2>{user ? user.email : "Desconectado"}</h2>
-
     </div>
   );
 };
