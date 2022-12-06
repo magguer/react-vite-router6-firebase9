@@ -16,7 +16,7 @@ const Header = () => {
     }
   };
 
-  const navStyle = { margin: "5px" };
+  const navStyle = { margin: "5px", color: 'white' , textDecoration:"none"};
 
   return (
     <div
@@ -24,6 +24,10 @@ const Header = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        background: 'white',
+        boxShadow: '3px 3px 3px gray',
+        borderRadius: '10px',
+        padding: '5px 20px'
       }}
     >
       {user ? (

@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { UserContext } from "./context/UserProvider";
 
 // FireBase Components
-import RequireAuth from "./components/RequireAuth";
+import RequireAuth from "./context/RequireAuth";
 
 // Rutas
 import Login from "./routes/Login";

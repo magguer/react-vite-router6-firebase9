@@ -5,8 +5,15 @@
 
 }
 
+body {
+    color: rgb(51, 51, 51);
+    background-color: rgb(255, 255, 255);
+    
+}
+
 p {
 
     margin: 0;
 
 }
+
