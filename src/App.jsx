@@ -16,13 +16,13 @@ import RegisterUser from "./routes/RegisterUser";
 
 // Componentes
 import Header from "./components/Header";
+import LayoutContainerForm from "./components/Forms/LayoutContainerForm";
 
 const App = () => {
-
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   if (user === false) {
-    return <p>Cargando...</p>
+    return <p>Cargando...</p>;
   }
 
   return (
@@ -30,8 +30,11 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<RegisterUser />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<LayoutContainerForm />}>
+          <Route path="/register" element={<RegisterUser />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
+
         <Route
           path="/userdata"
           element={

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
 import { useNavigate } from "react-router-dom";
+import ButtonBasic1 from "./Buttons/ButtonBasic1";
 
 const Header = () => {
   const { user, signOutEmailUser } = useContext(UserContext);
@@ -16,7 +17,7 @@ const Header = () => {
     }
   };
 
-  const navStyle = { margin: "5px", color: 'white' , textDecoration:"none"};
+  const navStyle = { margin: "5px"};
 
   return (
     <div
@@ -41,8 +42,7 @@ const Header = () => {
             </div>
           </div>
           <div style={{ display: "grid" }}>
-            <p>{user && user.email}</p>
-            <button onClick={handleUserLogout}>Desconectar</button>
+            <ButtonBasic1 onClick={handleUserLogout} textButton={"Desconectar"} />
           </div>
         </>
       ) : (
@@ -54,7 +54,8 @@ const Header = () => {
               <NavLink to="/login">Login</NavLink>
             </div>
             <div style={navStyle}>
-              <NavLink to="/register">Registro</NavLink>
+              <NavLink to
+              ="/register">Registro</NavLink>
             </div>
           </div>
         </>

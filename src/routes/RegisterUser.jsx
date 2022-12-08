@@ -1,5 +1,5 @@
 // Imports React Router
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 //Imports React Gook Form
 import { useForm } from "react-hook-form";
@@ -19,17 +19,10 @@ import FormErrors from "../components/Forms/Errors/FormErrors";
 
 // Imports Validaciones
 import { formValidate } from "../utils/formValidate";
+import ButtonBasic1 from "../components/Buttons/ButtonBasic1";
+import TitleForm from "../components/Forms/TitleForm";
 
 const RegisterUser = () => {
-  //Estilos
-
-  const buttonStyle = { margin: "5px", padding: "3px 8px" };
-  const divRegister = {
-    padding: "30px",
-    textAlign: "center",
-    borderRadius: "10px",
-  };
-
   //Validaciones
   const { required, patternEmail, minLength, validateNoSpace, validateRePass } =
     formValidate();
@@ -52,9 +45,8 @@ const RegisterUser = () => {
       navigate("/userdata");
     } catch (error) {
       console.log(error.code);
-      setError("firebase", {
-        message: firebaseErrors(error.code),
-      });
+      const { code, message } = firebaseErrors(error.code);
+      setError(code, { message });
     }
   };
 
@@ -63,60 +55,54 @@ const RegisterUser = () => {
 
   return (
     <>
-      <div style={divRegister}>
-        <h1 style={{ textAlign: "center", display: "inline" }}>
-          Registro de Usuarios
-        </h1>
+      <TitleForm textTitle={"Registro de Usuario"} />
 
-        <form
-          style={{ display: "grid", margin: "0 auto", width: "300px" }}
-          onSubmit={handleSubmit(onSubmit)}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormInputsText
+          type="email"
+          placeholder="Email"
+          {...register("email", {
+            required,
+            pattern: patternEmail,
+          })}
         >
-          <FormErrors error={errors.firebase} />
-          <FormInputsText
-            type="email"
-            placeholder="Email"
-            {...register("email", {
-              required,
-              pattern: patternEmail,
-            })}
-          >
-            <FormErrors error={errors.email} />
-          </FormInputsText>
+          <FormErrors error={errors.email} />
+        </FormInputsText>
 
-          <FormInputsText
-            type="password"
-            placeholder="Inserte contraseña"
-            name="password"
-            id="password"
-            {...register("password", {
-              required,
-              minLength,
-              validate: validateNoSpace,
-            })}
-          >
-            <FormErrors error={errors.password} />
-          </FormInputsText>
+        <FormInputsText
+          type="password"
+          placeholder="Inserte contraseña"
+          name="password"
+          id="password"
+          {...register("password", {
+            required,
+            minLength,
+            validate: validateNoSpace,
+          })}
+        >
+          <FormErrors error={errors.password} />
+        </FormInputsText>
 
-          <FormInputsText
-            type="password"
-            placeholder="Verifique la contraseña"
-            name="passwordrepeat"
-            id="passwordrepeat"
-            {...register("passwordrepeat", {
-              required,
-              minLength,
-              validate: validateRePass(getValues),
-            })}
-          >
-            <FormErrors error={errors.passwordrepeat} />
-          </FormInputsText>
-
-          <button type="submit" style={buttonStyle}>
-            Registrar Usuario
-          </button>
-        </form>
-      </div>
+        <FormInputsText
+          type="password"
+          placeholder="Verifique la contraseña"
+          name="passwordrepeat"
+          id="passwordrepeat"
+          {...register("passwordrepeat", {
+            required,
+            minLength,
+            validate: validateRePass(getValues("password")),
+          })}
+        >
+          <FormErrors error={errors.passwordrepeat} />
+        </FormInputsText>
+        <div className="text-center mb-3">
+          <ButtonBasic1 textButton={"Registrar Usuario"} type="submit" />
+        </div>
+        <div className="text-center">
+          <NavLink to="/login">¿Ya tenés usuario? Accede acá.</NavLink>
+        </div>
+      </form>
     </>
   );
 };

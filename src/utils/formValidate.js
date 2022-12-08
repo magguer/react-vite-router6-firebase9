@@ -1,4 +1,4 @@
-export const formValidate = (getValues) => {
+export const formValidate = (value) => {
 
     return {
         //Validación - Campo Obligatorio
@@ -18,10 +18,10 @@ export const formValidate = (getValues) => {
             },
         },
         //Validación - No coinciden las contraseñas
-        validateRePass(getValues) {
+        validateRePass(value) {
             return {
                 equals: (v) =>
-                    v === getValues("password") || "Las contraseñas no coincide.",
+                    v === value || "Las contraseñas no coinciden.",
             }
         },
 

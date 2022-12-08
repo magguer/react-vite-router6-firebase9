@@ -7,18 +7,17 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 //Imports Hook Form
 import { useForm } from "react-hook-form";
+
 //Imports Funciones
 import { firebaseErrors } from "../utils/firebaseErrors";
+import { formValidate } from "../utils/formValidate";
 //Imports Componentes
 import FormInputsText from "../components/Forms/FormInputsText";
 import FormErrors from "../components/Forms/Errors/FormErrors";
-import { formValidate } from "../utils/formValidate";
+import ButtonBasic1 from "../components/Buttons/ButtonBasic1";
+import TitleForm from "../components/Forms/TitleForm";
 
 const Login = () => {
-  //Estilos
-  const inputStyle = { margin: "5px", padding: "3px 8px" };
-  const buttonStyle = { margin: "5px", padding: "3px 8px" };
-
   // useContext
   const { loginEmailUser } = useContext(UserContext);
 
@@ -27,7 +26,7 @@ const Login = () => {
 
   // Validaciones de Formulario
   const { required, patternEmail, minLength, validateNoSpace, validateRePass } =
-  formValidate();
+    formValidate();
 
   //Funciones
   const {
@@ -43,19 +42,15 @@ const Login = () => {
       navigate("/userdata");
     } catch (error) {
       console.log(error.code);
-      setError("firebase", {
-        message: firebaseErrors(error.code),
-      });
+      const { code, message } = firebaseErrors(error.code);
+      setError(code, { message });
     }
   };
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Login de Usuarios</h1>
-      <form
-        style={{ display: "grid", margin: "0 auto", width: "300px" }}
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <TitleForm textTitle={"Ingreso de Usuario"} />
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FormErrors error={errors.firebase} />
 
         <FormInputsText
@@ -82,13 +77,12 @@ const Login = () => {
         >
           <FormErrors error={errors.password} />
         </FormInputsText>
-
-        <button type="submit" style={buttonStyle}>
-          Acceder
-        </button>
-        <NavLink style={{ textAlign: "center" }} to="/register">
-          Aun no tienes usuario? Registrate.
-        </NavLink>
+        <div className="text-center mb-3">
+          <ButtonBasic1 textButton={"Acceder"} type="submit" />
+        </div>
+        <div className="text-center">
+          <NavLink to="/register">¿No tienes usuario? Registrate acá.</NavLink>
+        </div>
       </form>
     </>
   );
